@@ -3,12 +3,165 @@
   <component name="CopilotDiffPersistence">
     <option name="pendingDiffs">
       <map>
-        <entry key="$PROJECT_DIR$/README.md">
+        <entry key="$PROJECT_DIR$/src/main/clases/CertificadoNoRetencion.java">
           <value>
             <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/README.md" />
-              <option name="originalContent" value="# TPO-POO&#10;# Sistema de Gestión de Proveedores - CDCSoft&#10;&#10;##  Descripción del Proyecto&#10;Este proyecto es el desarrollo del &quot;Módulo de Proveedores&quot; para el sistema *Factura 2026* de la empresa CDCSoft, implementado en Java utilizando el paradigma Orientado a Objetos (POO).&#10;El objetivo principal es centralizar y gestionar eficientemente la información de proveedores, productos, órdenes de compra, facturación y pagos, incluyendo el manejo complejo de retenciones impositivas y controles de deuda.&#10;&#10;## Arquitectura y Modelado (Fase 1)&#10;El diseño del sistema se basó en los requerimientos del Trabajo Práctico.&#10;- **Diagrama de Clases:** Modelo conceptual completo incluyendo herencia y relaciones de multiplicidad.&#10;- **Diagramas de Secuencia:** Detalle de los flujos críticos de negocio.&#10;&#10;## Módulos Funcionales (Fase 2)&#10;El sistema está dividido en los siguientes subsistemas principales:&#10;-&#10;-&#10;-&#10;-&#10;-&#10;-&#10;-&#10;" />
-              <option name="updatedContent" value="# TPO-POO&#10;&#10;Proyecto base en Java para el TP de **Sistema de Gestión de Proveedores**.&#10;&#10;## Hecho hasta ahora&#10;- `Main.java` creado como punto de entrada.&#10;- Carpeta `clases` creada con las clases base del modelo.&#10;- Todas las clases están vacías por ahora, solo como base para empezar a programar.&#10;&#10;## Estructura&#10;```text&#10;src/main/&#10;├── Main.java&#10;└── clases/&#10;    ├── CertificadoNoRetencion.java&#10;    ├── DocumentoComercial.java&#10;    ├── Factura.java&#10;    ├── Impuestos.java&#10;    ├── OrdenCompra.java&#10;    ├── OrdenPago.java&#10;    └── Proveedor.java&#10;```&#10;" />
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/CertificadoNoRetencion.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class CertificadoNoRetencion {&#10;}&#10;&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#13;&#10;&#13;&#10;import java.util.Date;&#13;&#10;&#13;&#10;public class CertificadoNoRetencion {&#13;&#10;&#9;// Atributos&#13;&#10;&#9;public Date fechaInicio;&#13;&#10;&#9;public Date fechaFin;&#13;&#10;&#13;&#10;&#9;public boolean estaVigente() {&#13;&#10;&#9;&#9;return false;&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;&#13;&#10;&#13;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/Cheque.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/Cheque.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class Cheque extends MedioPago {&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#10;&#10;import java.util.Date;&#10;&#10;public class Cheque extends MedioPago {&#10;&#9;// Atributos&#10;&#9;public Date fechaEmision;&#10;&#9;public Date fechaVencimiento;&#10;&#9;public String nombreFirmante;&#10;&#9;public String bancoEmisor;&#10;&#9;public String numeroCheque;&#10;}&#10;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/CondicionIva.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/CondicionIva.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class CondicionIva {&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#10;&#10;public class CondicionIva {&#10;&#9;// Atributos&#10;&#9;public int idCondicion;&#10;&#9;public String descripcion;&#10;}&#10;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/DetalleDocumento.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/DetalleDocumento.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class DetalleDocumento {&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#10;&#10;public class DetalleDocumento {&#10;&#9;// Atributos&#10;&#9;public int cantidad;&#10;&#9;public double precioUnitarioAplicado;&#10;&#9;public double subTotalLinea;&#10;&#10;&#9;public double calcularSubtotal() {&#10;&#9;&#9;return 0.0;&#10;&#9;}&#10;}&#10;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/DetalleOrdenCompra.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/DetalleOrdenCompra.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class DetalleOrdenCompra {&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#10;&#10;public class DetalleOrdenCompra {&#10;&#9;// Atributos&#10;&#9;public int cantidad;&#10;&#9;public double precioAcordado;&#10;&#10;&#9;public double calcularSubtotal() {&#10;&#9;&#9;return 0.0;&#10;&#9;}&#10;}&#10;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/DocumentoComercial.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/DocumentoComercial.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class DocumentoComercial {&#10;}&#10;&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#13;&#10;&#13;&#10;import java.util.Date;&#13;&#10;&#13;&#10;public class DocumentoComercial {&#13;&#10;&#9;// Atributos&#13;&#10;&#9;public String numero;&#13;&#10;&#9;public Date fechaEmision;&#13;&#10;&#9;public double importeTotal;&#13;&#10;&#13;&#10;&#9;public double calcularTotal() {&#13;&#10;&#9;&#9;return 0.0;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public String getTipo() {&#13;&#10;&#9;&#9;return null;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public String getNumero() {&#13;&#10;&#9;&#9;return numero;&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;&#13;&#10;&#13;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/Efectivo.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/Efectivo.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class Efectivo extends MedioPago {&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#10;&#10;public class Efectivo extends MedioPago {&#10;&#9;// Sin atributos adicionales por ahora&#10;}&#10;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/Factura.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/Factura.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class Factura extends DocumentoComercial {&#10;}&#10;&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#13;&#10;&#13;&#10;import java.util.Date;&#13;&#10;&#13;&#10;public class Factura extends DocumentoComercial {&#13;&#10;&#9;// Atributos&#13;&#10;&#9;public char tipoFactura;&#13;&#10;&#9;public Date fechaVencimiento;&#13;&#10;&#13;&#10;&#9;public boolean validarPreciosConOC(OrdenCompra orden) {&#13;&#10;&#9;&#9;return false;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void confirmarRegistro() {&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;&#13;&#10;&#13;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/Impuestos.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/Impuestos.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class Impuestos {&#10;}&#10;&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#13;&#10;&#13;&#10;public class Impuestos {&#13;&#10;&#9;// Atributos&#13;&#10;&#9;public String nombre;&#13;&#10;&#9;public double porcentajeBase;&#13;&#10;&#13;&#10;&#9;public Impuestos buscarPorNombre(String nombre) {&#13;&#10;&#9;&#9;return null;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public boolean esValido() {&#13;&#10;&#9;&#9;return false;&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;&#13;&#10;&#13;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/MedioPago.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/MedioPago.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public abstract class MedioPago {&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#10;&#10;public abstract class MedioPago {&#10;&#9;// Atributos&#10;&#9;public double montoAplicado;&#10;&#10;&#9;public double getMontoAplicado() {&#10;&#9;&#9;return montoAplicado;&#10;&#9;}&#10;}&#10;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/NotaCredito.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/NotaCredito.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class NotaCredito extends DocumentoComercial {&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#10;&#10;public class NotaCredito extends DocumentoComercial {&#10;&#9;// Atributos&#10;&#9;public String motivoDevolucion;&#10;&#10;&#9;public void aplicarNota() {&#10;&#9;}&#10;}&#10;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/NotaDebito.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/NotaDebito.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class NotaDebito extends DocumentoComercial {&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#10;&#10;public class NotaDebito extends DocumentoComercial {&#10;&#9;// Atributos&#10;&#9;public String motivoCargo;&#10;&#10;&#9;public void aplicarNota() {&#10;&#9;}&#10;}&#10;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/OrdenCompra.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/OrdenCompra.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class OrdenCompra {&#10;}&#10;&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#13;&#10;&#13;&#10;import java.util.Date;&#13;&#10;&#13;&#10;public class OrdenCompra {&#13;&#10;&#9;// Atributos&#13;&#10;&#9;public String numeroOC;&#13;&#10;&#9;public Date fechaEmision;&#13;&#10;&#9;public double totalEstimado;&#13;&#10;&#9;public String estado;&#13;&#10;&#9;public boolean requiereSupervision;&#13;&#10;&#13;&#10;&#9;public double calcularTotal() {&#13;&#10;&#9;&#9;return 0.0;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void setRequiereSupervision(boolean requiere) {&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void setEstado(String estado) {&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void confirmarCreacion() {&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;&#13;&#10;&#13;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/OrdenPago.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/OrdenPago.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class OrdenPago {&#10;}&#10;&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#13;&#10;&#13;&#10;import java.util.Date;&#13;&#10;&#13;&#10;public class OrdenPago {&#13;&#10;&#9;// Atributos&#13;&#10;&#9;public String numeroOperacion;&#13;&#10;&#9;public Date fechaEmision;&#13;&#10;&#9;public double totalACancelar;&#13;&#10;&#9;public double totalRetenciones;&#13;&#10;&#13;&#10;&#9;public void asociarFactura(Factura factura) {&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public double calcularTotalAPagar() {&#13;&#10;&#9;&#9;return 0.0;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public double calcularRetenciones() {&#13;&#10;&#9;&#9;return 0.0;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public double getTotalACancelar() {&#13;&#10;&#9;&#9;return totalACancelar;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void confirmarEmision() {&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;&#13;&#10;&#13;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/ProductoServicio.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/ProductoServicio.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class ProductoServicio {&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#10;&#10;public class ProductoServicio {&#10;&#9;// Atributos&#10;&#9;public String nombre;&#10;&#9;public String unidadMedida;&#10;&#9;public double tipoIva;&#10;&#10;&#9;public double getPrecio() {&#10;&#9;&#9;return 0.0;&#10;&#9;}&#10;}&#10;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/Proveedor.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/Proveedor.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class Proveedor {&#10;}&#10;&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#13;&#10;&#13;&#10;import java.util.Date;&#13;&#10;import java.util.List;&#13;&#10;&#13;&#10;public class Proveedor {&#13;&#10;&#9;// Atributos&#13;&#10;&#9;public int idProveedor;&#13;&#10;&#9;public String razonSocial;&#13;&#10;&#9;public String cuit;&#13;&#10;&#9;public String direccion;&#13;&#10;&#9;public String telefono;&#13;&#10;&#9;public String email;&#13;&#10;&#9;public double topeDeuda;&#13;&#10;&#9;public double saldoActual;&#13;&#10;&#13;&#10;&#9;public List&lt;DocumentoComercial&gt; getDocumentosComerciales(Date desde, Date hasta) {&#13;&#10;&#9;&#9;return null;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public List&lt;OrdenPago&gt; getOrdenesPago(Date desde, Date hasta) {&#13;&#10;&#9;&#9;return null;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public boolean tieneCertificado(CertificadoNoRetencion cert) {&#13;&#10;&#9;&#9;return false;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void agregarCertificado(CertificadoNoRetencion cert) {&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;&#13;&#10;&#13;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/Rubro.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/Rubro.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class Rubro {&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#10;&#10;public class Rubro {&#10;&#9;// Atributos&#10;&#9;public int idRubro;&#10;&#9;public String descripcion;&#10;}&#10;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/clases/Transferencia.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/clases/Transferencia.java" />
+              <option name="originalContent" value="package clases;&#10;&#10;public class Transferencia extends MedioPago {&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="package clases;&#10;&#10;public class Transferencia extends MedioPago {&#10;&#9;// Atributos&#10;&#9;public String cbuDestino;&#10;&#9;public String numeroOperacion;&#10;&#9;public String banco;&#10;}&#10;&#10;" />
             </PendingDiffInfo>
           </value>
         </entry>
@@ -81,78 +234,6 @@
             <PendingDiffInfo>
               <option name="filePath" value="$PROJECT_DIR$/src/main/java/clases/Sistema.java" />
               <option name="updatedContent" value="package clases;&#10;&#10;public class Sistema {&#10;}&#10;&#10;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/CertificadoNoRetencion.java">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/CertificadoNoRetencion.java" />
-              <option name="updatedContent" value="package com.cdcsoft.factura2026;&#10;&#10;public class CertificadoNoRetencion {&#10;}&#10;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/DocumentoComercial.java">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/DocumentoComercial.java" />
-              <option name="updatedContent" value="package com.cdcsoft.factura2026;&#10;&#10;public class DocumentoComercial {&#10;}&#10;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/Factura.java">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/Factura.java" />
-              <option name="updatedContent" value="package com.cdcsoft.factura2026;&#10;&#10;public class Factura extends DocumentoComercial {&#10;}&#10;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/Impuestos.java">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/Impuestos.java" />
-              <option name="updatedContent" value="package com.cdcsoft.factura2026;&#10;&#10;public class Impuestos {&#10;}&#10;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/Main.java">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/Main.java" />
-              <option name="updatedContent" value="package com.cdcsoft.factura2026;&#10;&#10;public class Main {&#10;    public static void main(String[] args) {&#10;        System.out.println(&quot;Base del proyecto TPO-POO inicializada.&quot;);&#10;    }&#10;}&#10;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/OrdenCompra.java">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/OrdenCompra.java" />
-              <option name="updatedContent" value="package com.cdcsoft.factura2026;&#10;&#10;public class OrdenCompra {&#10;}&#10;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/OrdenPago.java">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/OrdenPago.java" />
-              <option name="updatedContent" value="package com.cdcsoft.factura2026;&#10;&#10;public class OrdenPago {&#10;}&#10;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/Proveedor.java">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/Proveedor.java" />
-              <option name="updatedContent" value="package com.cdcsoft.factura2026;&#10;&#10;public class Proveedor {&#10;}&#10;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/Sistema.java">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/cdcsoft/factura2026/Sistema.java" />
-              <option name="updatedContent" value="package com.cdcsoft.factura2026;&#10;&#10;public class Sistema {&#10;}&#10;" />
             </PendingDiffInfo>
           </value>
         </entry>
