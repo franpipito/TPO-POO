@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,13 @@ public class Proveedor {
 	public String email;
 	public double topeDeuda;
 	public double saldoActual;
+
+	// Relaciones
+	public List<Rubro> rubros = new ArrayList<>();
+	public CondicionIva condicionIva;
+	public List<CertificadoNoRetencion> certificados = new ArrayList<>();
+	public List<DocumentoComercial> documentos = new ArrayList<>();
+	public List<OrdenCompra> ordenesCompra = new ArrayList<>();
 
 	public List<DocumentoComercial> getDocumentosComerciales(Date desde, Date hasta) {
 		return null;

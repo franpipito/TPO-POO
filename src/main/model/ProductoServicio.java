@@ -5,5 +5,8 @@ public class ProductoServicio {
 	public String nombre;
 	public String unidadMedida;
 	public double tipoIva;
+
+	// Relaciones
+	public Rubro rubro;
 }
 

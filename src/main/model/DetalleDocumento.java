@@ -6,6 +6,9 @@ public class DetalleDocumento {
 	public double precioUnitarioAplicado;
 	public double subTotalLinea;
 
+	// Relaciones
+	public ProductoServicio producto;
+
 	public double calcularSubtotal() {
 		return 0.0;
 	}

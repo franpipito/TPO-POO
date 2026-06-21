@@ -5,6 +5,9 @@ public class DetalleOrdenCompra {
 	public int cantidad;
 	public double precioAcordado;
 
+	// Relaciones
+	public ProductoServicio producto;
+
 	public double calcularSubtotal() {
 		return 0.0;
 	}

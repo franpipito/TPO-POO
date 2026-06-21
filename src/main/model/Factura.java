@@ -7,6 +7,9 @@ public class Factura extends DocumentoComercial {
 	public char tipoFactura;
 	public Date fechaVencimiento;
 
+	// Relaciones
+	public OrdenCompra ordenCompra;
+
 	public boolean validarPreciosConOC(OrdenCompra orden) {
 		return false;
 	}

@@ -1,6 +1,8 @@
 package model;
 
+ import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class OrdenPago {
 	// Atributos
@@ -8,6 +10,10 @@ public class OrdenPago {
 	public Date fechaEmision;
 	public double totalACancelar;
 	public double totalRetenciones;
+
+	// Relaciones
+	public List<DocumentoComercial> documentos = new ArrayList<>();
+	public List<MedioPago> mediosPago = new ArrayList<>();
 
 	public void asociarFactura(Factura factura) {
 	}
