@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class Proveedor {
 	// Atributos
@@ -30,15 +31,14 @@ public class Proveedor {
 		return null;
 	}
 
-	public boolean tieneCertificado(CertificadoNoRetencion cert) {
+	public boolean tieneCertificadoVigente(Impuestos impuesto, Date fecha) {
 		return false;
 	}
 
 	public void agregarCertificado(CertificadoNoRetencion cert) {
 	}
 
-	// Método para obtener un proveedor por id (sin implementación)
-	public static Proveedor getProveedor(int idProveedor) {
+	public static Map<String, Object> getProveedor(int idProveedor) {
 		return null;
 	}
 }

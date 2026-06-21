@@ -10,7 +10,11 @@ public class CertificadoNoRetencion {
 	// Relaciones
 	public Impuestos impuesto;
 
-	public boolean estaVigente() {
+	public static CertificadoNoRetencion crear(String idProv, Impuestos imp, Date inicio, Date fin) {
+		return null;
+	}
+
+	public boolean estaVigente(Date fecha) {
 		return false;
 	}
 }
