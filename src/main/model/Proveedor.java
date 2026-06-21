@@ -9,10 +9,13 @@ public class Proveedor {
 	// Atributos
 	public int idProveedor;
 	public String razonSocial;
+	public String nombreFantasia;
 	public String cuit;
 	public String direccion;
 	public String telefono;
 	public String email;
+	public String ingresosBrutos;
+	public Date fechaInicioActividades;
 	public double topeDeuda;
 	public double saldoActual;
 
