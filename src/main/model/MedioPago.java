@@ -1,4 +1,4 @@
-package clases;
+package model;
 
 public abstract class MedioPago {
 	// Atributos

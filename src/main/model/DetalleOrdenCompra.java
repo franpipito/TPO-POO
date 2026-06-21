@@ -1,4 +1,4 @@
-package clases;
+package model;
 
 public class DetalleOrdenCompra {
 	// Atributos
