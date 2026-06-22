@@ -10,7 +10,8 @@ public class DetalleDocumento {
 	public ProductoServicio producto;
 
 	public double calcularSubtotal() {
-		return 0.0;
+		subTotalLinea = cantidad * precioUnitarioAplicado;
+		return subTotalLinea;
 	}
 }
 

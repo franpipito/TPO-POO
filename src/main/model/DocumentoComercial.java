@@ -14,11 +14,17 @@ public class DocumentoComercial {
 	public List<DetalleDocumento> detalles = new ArrayList<>();
 
 	public double calcularTotal() {
-		return 0.0;
+		double total = 0.0;
+		for (DetalleDocumento d : detalles) {
+			total += d.calcularSubtotal();
+		}
+		importeTotal = total;
+		return total;
 	}
 
+	// Tipo de documento para la cuenta corriente. Lo redefine cada subclase (F / NC / ND).
 	public String getTipo() {
-		return null;
+		return "DC";
 	}
 
 	public String getNumero() {

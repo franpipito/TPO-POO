@@ -9,7 +9,7 @@ public class DetalleOrdenCompra {
 	public ProductoServicio producto;
 
 	public double calcularSubtotal() {
-		return 0.0;
+		return cantidad * precioAcordado;
 	}
 }
 
