@@ -14,6 +14,8 @@ public class OrdenPago {
 	// Relaciones
 	public List<DocumentoComercial> documentos = new ArrayList<>();
 	public List<MedioPago> mediosPago = new ArrayList<>();
+	// Desglose de retenciones efectuadas (IVA, IIBB, Ganancias por separado)
+	public List<RetencionAplicada> retencionesAplicadas = new ArrayList<>();
 
 	public void asociarFactura(Factura factura) {
 	}
@@ -23,7 +25,13 @@ public class OrdenPago {
 	}
 
 	public double calcularRetenciones() {
-		return 0.0;
+		// Suma el detalle de retenciones aplicadas y actualiza el total
+		double total = 0.0;
+		for (RetencionAplicada r : retencionesAplicadas) {
+			total += r.montoRetenido;
+		}
+		totalRetenciones = total;
+		return total;
 	}
 
 	public double getTotalACancelar() {

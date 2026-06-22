@@ -25,6 +25,8 @@ public class Proveedor {
 	public List<CertificadoNoRetencion> certificados = new ArrayList<>();
 	public List<DocumentoComercial> documentos = new ArrayList<>();
 	public List<OrdenCompra> ordenesCompra = new ArrayList<>();
+	// Productos que comercializa con su último precio acordado (compulsa de precios)
+	public List<PrecioProveedor> precios = new ArrayList<>();
 
 	public List<DocumentoComercial> getDocumentosComerciales(Date desde, Date hasta) {
 		return null;

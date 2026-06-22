@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductoServicio {
 	// Atributos
 	public String nombre;
@@ -8,5 +11,7 @@ public class ProductoServicio {
 
 	// Relaciones
 	public Rubro rubro;
+	// Proveedores que comercializan este producto con su último precio acordado
+	public List<PrecioProveedor> precios = new ArrayList<>();
 }
 
