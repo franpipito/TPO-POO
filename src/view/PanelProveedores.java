@@ -86,10 +86,33 @@ public class PanelProveedores extends JPanel implements Refrescable {
     }
 
     private void agregar() {
-        if (campoRazonSocial.getText().trim().isEmpty()) {
+        String razonSocial = campoRazonSocial.getText().trim();
+        String cuit = campoCuit.getText().trim();
+        String email = campoEmail.getText().trim();
+        String telefono = campoTelefono.getText().trim();
+
+        // Razón social: obligatoria.
+        if (razonSocial.isEmpty()) {
             Ui.error(this, "La razon social es obligatoria.");
             return;
         }
+        // CUIT: obligatorio y válido (11 dígitos + dígito verificador correcto).
+        if (!Ui.esCuitValido(cuit)) {
+            Ui.error(this, "El CUIT no es valido. Debe tener 11 digitos con digito verificador correcto "
+                    + "(ej. 20-12345678-6).");
+            return;
+        }
+        // Email: opcional, pero si se carga debe tener formato válido.
+        if (!email.isEmpty() && !Ui.esEmailValido(email)) {
+            Ui.error(this, "El email no tiene un formato valido (ej. nombre@dominio.com).");
+            return;
+        }
+        // Teléfono: opcional, pero si se carga debe ser numérico (no letras).
+        if (!telefono.isEmpty() && !Ui.esTelefonoValido(telefono)) {
+            Ui.error(this, "El telefono solo puede tener numeros y simbolos (+ - ( )), con al menos 6 digitos.");
+            return;
+        }
+        // Tope de deuda: numérico y no negativo.
         double tope;
         try {
             String t = campoTopeDeuda.getText().trim();
@@ -98,14 +121,18 @@ public class PanelProveedores extends JPanel implements Refrescable {
             Ui.error(this, "El tope de deuda debe ser un numero.");
             return;
         }
+        if (tope < 0) {
+            Ui.error(this, "El tope de deuda no puede ser negativo.");
+            return;
+        }
 
         Proveedor p = new Proveedor();
-        p.razonSocial = campoRazonSocial.getText().trim();
+        p.razonSocial = razonSocial;
         p.nombreFantasia = campoNombreFantasia.getText().trim();
-        p.cuit = campoCuit.getText().trim();
+        p.cuit = cuit;
         p.direccion = campoDireccion.getText().trim();
-        p.telefono = campoTelefono.getText().trim();
-        p.email = campoEmail.getText().trim();
+        p.telefono = telefono;
+        p.email = email;
         p.ingresosBrutos = campoIngresosBrutos.getText().trim();
         p.topeDeuda = tope;
 

@@ -115,6 +115,10 @@ public class PanelOrdenPago extends JPanel implements Refrescable {
             Ui.error(this, "El monto debe ser numerico.");
             return;
         }
+        if (monto <= 0) {
+            Ui.error(this, "El monto debe ser mayor a 0.");
+            return;
+        }
         String tipo = (String) comboMedio.getSelectedItem();
         MedioPago medio;
         if ("Cheque".equals(tipo)) {

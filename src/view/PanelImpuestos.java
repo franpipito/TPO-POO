@@ -73,6 +73,16 @@ public class PanelImpuestos extends JPanel implements Refrescable {
             Ui.error(this, "El impuesto no es valido: requiere nombre y porcentaje base mayor a 0.");
             return;
         }
+        // El porcentaje es una alícuota: no puede superar el 100%.
+        if (imp.porcentajeBase > 100) {
+            Ui.error(this, "El porcentaje base no puede ser mayor a 100.");
+            return;
+        }
+        // El mínimo no imponible no puede ser negativo.
+        if (imp.minimoNoImponible < 0) {
+            Ui.error(this, "El minimo no imponible no puede ser negativo.");
+            return;
+        }
         ctx.impuestos.add(imp);
         campoNombre.setText("");
         campoTipo.setText("");

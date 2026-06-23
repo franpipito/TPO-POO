@@ -81,6 +81,10 @@ public class PanelUsuarios extends JPanel implements Refrescable {
             Ui.error(this, "Usuario y contraseña son obligatorios.");
             return;
         }
+        if (usuario.contains(" ")) {
+            Ui.error(this, "El nombre de usuario no puede contener espacios.");
+            return;
+        }
         if (rol == null) {
             Ui.error(this, "Selecciona un rol.");
             return;
@@ -110,6 +114,10 @@ public class PanelUsuarios extends JPanel implements Refrescable {
         String nuevoNombre = campoUsuario.getText().trim();
         if (nuevoNombre.isEmpty()) {
             Ui.error(this, "El nombre de usuario es obligatorio.");
+            return;
+        }
+        if (nuevoNombre.contains(" ")) {
+            Ui.error(this, "El nombre de usuario no puede contener espacios.");
             return;
         }
         String nuevaClave = new String(campoClave.getPassword());

@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 
 // Utilidades comunes de la interfaz: combos con texto de presentación,
 // parseo/formato de fechas y diálogos de mensajes.
@@ -68,5 +69,57 @@ public final class Ui {
 
     public static void info(Component padre, String mensaje) {
         JOptionPane.showMessageDialog(padre, mensaje, "Informacion", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // Patrón simple de email: algo@algo.dominio (sin espacios).
+    private static final Pattern EMAIL =
+            Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+
+    /**
+     * Valida un CUIT argentino. Acepta el texto con o sin guiones/espacios; exige 11
+     * dígitos y que el ÚLTIMO sea el dígito verificador correcto (algoritmo módulo 11).
+     * Así no se aceptan números inventados que "parezcan" un CUIT.
+     */
+    public static boolean esCuitValido(String cuit) {
+        if (cuit == null) {
+            return false;
+        }
+        String d = cuit.replaceAll("[^0-9]", ""); // deja solo los dígitos
+        if (d.length() != 11) {
+            return false;
+        }
+        int[] pesos = {5, 4, 3, 2, 7, 6, 5, 4, 3, 2};
+        int suma = 0;
+        for (int i = 0; i < 10; i++) {
+            suma += (d.charAt(i) - '0') * pesos[i];
+        }
+        int verificador = 11 - (suma % 11);
+        if (verificador == 11) {
+            verificador = 0;
+        }
+        if (verificador == 10) {
+            return false; // CUIT no estándar
+        }
+        return verificador == (d.charAt(10) - '0');
+    }
+
+    // Email válido según el patrón simple (no vacío y con forma nombre@dominio.ext).
+    public static boolean esEmailValido(String email) {
+        return email != null && EMAIL.matcher(email.trim()).matches();
+    }
+
+    /**
+     * Teléfono válido: solo dígitos y símbolos telefónicos (+ - ( ) y espacios) y al
+     * menos 6 dígitos. Rechaza textos como "a" o letras sueltas.
+     */
+    public static boolean esTelefonoValido(String tel) {
+        if (tel == null) {
+            return false;
+        }
+        String t = tel.trim();
+        if (!t.matches("[0-9+\\-() ]+")) {
+            return false;
+        }
+        return t.replaceAll("[^0-9]", "").length() >= 6;
     }
 }

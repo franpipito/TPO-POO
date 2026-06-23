@@ -77,6 +77,11 @@ public class PanelCertificados extends JPanel implements Refrescable {
             Ui.error(this, "Ambas fechas son obligatorias.");
             return;
         }
+        // La vigencia tiene que tener sentido: el inicio no puede ser posterior al fin.
+        if (inicio.after(fin)) {
+            Ui.error(this, "La fecha 'Desde' no puede ser posterior a 'Hasta'.");
+            return;
+        }
         ctx.certificados.crear(prov, imp, inicio, fin);
         campoInicio.setText("");
         campoFin.setText("");

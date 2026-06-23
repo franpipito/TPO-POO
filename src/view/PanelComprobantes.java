@@ -127,6 +127,10 @@ public class PanelComprobantes extends JPanel implements Refrescable {
             Ui.error(this, "Cantidad y precio deben ser numericos.");
             return;
         }
+        if (cantidad <= 0 || precio <= 0) {
+            Ui.error(this, "La cantidad y el precio deben ser mayores a 0.");
+            return;
+        }
         DetalleDocumento det = new DetalleDocumento();
         det.producto = prod;
         det.cantidad = cantidad;

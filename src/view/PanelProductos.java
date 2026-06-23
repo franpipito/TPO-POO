@@ -13,7 +13,10 @@ public class PanelProductos extends JPanel implements Refrescable {
     private final AppContext ctx;
     private final JTextField campoNombre = new JTextField(15);
     private final JTextField campoUnidad = new JTextField(6);
-    private final JTextField campoIva = new JTextField(4);
+    // El IVA solo puede tomar valores fijos: 21%, 10.5%, 27% o Exento (0%). Por eso es
+    // un dropdown y no un campo libre: el usuario no puede cargar un IVA inválido.
+    private final JComboBox<String> comboIva = new JComboBox<>(
+            new String[]{"21%", "10.5%", "27%", "Exento"});
     private final JComboBox<Rubro> comboRubro = new JComboBox<>();
     private final DefaultTableModel modeloTabla;
     private final JTable tabla;
@@ -29,8 +32,8 @@ public class PanelProductos extends JPanel implements Refrescable {
         form.add(campoNombre);
         form.add(new JLabel("Unidad:"));
         form.add(campoUnidad);
-        form.add(new JLabel("% IVA:"));
-        form.add(campoIva);
+        form.add(new JLabel("IVA:"));
+        form.add(comboIva);
         form.add(new JLabel("Rubro:"));
         form.add(comboRubro);
         JButton agregar = new JButton("Agregar");
@@ -57,24 +60,39 @@ public class PanelProductos extends JPanel implements Refrescable {
             Ui.error(this, "El nombre es obligatorio.");
             return;
         }
-        double iva;
-        try {
-            String t = campoIva.getText().trim();
-            iva = t.isEmpty() ? 0 : Double.parseDouble(t);
-        } catch (NumberFormatException ex) {
-            Ui.error(this, "El IVA debe ser un numero.");
+        // Un producto debe pertenecer a un rubro existente.
+        Rubro rubro = (Rubro) comboRubro.getSelectedItem();
+        if (rubro == null) {
+            Ui.error(this, "Selecciona un rubro. Si no hay, carga uno en Catalogo > Rubros.");
             return;
         }
         ProductoServicio p = new ProductoServicio();
         p.nombre = campoNombre.getText().trim();
         p.unidadMedida = campoUnidad.getText().trim();
-        p.tipoIva = iva;
-        p.rubro = (Rubro) comboRubro.getSelectedItem();
+        // El IVA sale del dropdown, así que siempre es uno de los valores válidos.
+        p.tipoIva = ivaSeleccionado();
+        p.rubro = rubro;
         ctx.productos.add(p);
         campoNombre.setText("");
         campoUnidad.setText("");
-        campoIva.setText("");
         refrescar();
+    }
+
+    // Convierte la opción elegida del dropdown al porcentaje numérico que guarda el
+    // modelo. "Exento" se representa como 0% (no se le retiene/aplica IVA).
+    private double ivaSeleccionado() {
+        String opcion = (String) comboIva.getSelectedItem();
+        if ("10.5%".equals(opcion)) return 10.5;
+        if ("27%".equals(opcion)) return 27;
+        if ("Exento".equals(opcion)) return 0;
+        return 21; // "21%"
+    }
+
+    // Da formato al IVA para mostrarlo en la tabla: "Exento" si es 0, o el % si no.
+    private static String formatIva(double iva) {
+        if (iva == 0) return "Exento";
+        if (iva == Math.floor(iva)) return (int) iva + "%"; // 21, 27 -> sin decimales
+        return iva + "%"; // 10.5%
     }
 
     private void eliminar() {
@@ -93,7 +111,7 @@ public class PanelProductos extends JPanel implements Refrescable {
         modeloTabla.setRowCount(0);
         for (ProductoServicio p : ctx.productos) {
             modeloTabla.addRow(new Object[]{
-                    p.nombre, p.unidadMedida, p.tipoIva,
+                    p.nombre, p.unidadMedida, formatIva(p.tipoIva),
                     p.rubro == null ? "" : p.rubro.nombre
             });
         }

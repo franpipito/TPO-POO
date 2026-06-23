@@ -98,6 +98,10 @@ public class PanelOrdenCompra extends JPanel implements Refrescable {
             Ui.error(this, "Cantidad y precio deben ser numericos.");
             return;
         }
+        if (cantidad <= 0 || precio <= 0) {
+            Ui.error(this, "La cantidad y el precio deben ser mayores a 0.");
+            return;
+        }
         DetalleOrdenCompra det = ctx.ordenesCompra.crearDetalle(prod, cantidad, precio);
         lineas.add(det);
         modeloDetalle.addRow(new Object[]{prod.nombre, cantidad, precio, det.calcularSubtotal()});
