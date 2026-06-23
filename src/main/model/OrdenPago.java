@@ -26,9 +26,11 @@ public class OrdenPago {
 	}
 
 	public double calcularTotalAPagar() {
-		// Total bruto de los documentos menos las retenciones aplicadas
-		totalACancelar = calcularBaseImponible();
-		return totalACancelar - calcularRetenciones();
+		// Calcula la base imponible y, descontando las retenciones, consolida el total
+		// a cancelar (neto que efectivamente se le paga al proveedor). Devuelve la base.
+		double totalBase = calcularBaseImponible();
+		totalACancelar = totalBase - calcularRetenciones();
+		return totalBase;
 	}
 
 	// Base sobre la que se calculan las retenciones: suma de los documentos a
