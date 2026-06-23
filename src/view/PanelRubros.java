@@ -81,8 +81,23 @@ public class PanelRubros extends JPanel implements Refrescable {
             Ui.error(this, "Selecciona un rubro.");
             return;
         }
+        Rubro r = ctx.rubros.get(fila);
+        // No se permite borrar un rubro que tenga productos asociados, para no dejar
+        // productos sin rubro valido.
+        if (estaEnUso(r)) {
+            Ui.error(this, "No se puede eliminar el rubro porque hay productos asociados.");
+            return;
+        }
         ctx.rubros.remove(fila);
         refrescar();
+    }
+
+    // True si algun producto del catalogo esta asociado a ese rubro.
+    private boolean estaEnUso(Rubro r) {
+        for (model.ProductoServicio p : ctx.productos) {
+            if (p.rubro == r) return true;
+        }
+        return false;
     }
 
     @Override

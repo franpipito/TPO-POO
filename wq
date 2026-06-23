@@ -1,0 +1,20 @@
+[33m8c14134[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m FIX modificacion de nombre usuario & ADD deduplicacion de roles
+[33mfdb6fca[m ADD Login vista de usuarios y roles
+[33m0f246ac[m FIX estructura de paquetes
+[33mb19f01c[m FIX bug en OrdenPago
+[33m7f29d1b[m ADD README.md
+[33ma8bce80[m ADD capa view completa con pestanas por modulo
+[33me4fd9cc[m ADD controllers
+[33ma271969[m ADD logica en los metodos
+[33m81d2888[m ADD clases faltantes
+[33m27e9912[m ADD .gitignore
+[33mc9a6ab9[m ADD atributos faltantes
+[33mf33cec5[m fix metodos que no coinciden con el diagrama
+[33me035da1[m Relaciones entre clases no implementadas
+[33m4a89133[m Interfaz grafica
+[33m3c8c113[m Agrega placeholder para carpetas view y controller
+[33m1cb780a[m Refactor del proyecto a patron MVC
+[33m2a337b1[m se agregan los atributos y metodos a las clases
+[33m185ac02[m Creacion principal del proyecto
+[33ma7a0f7c[m Update README.md
+[33mf175a17[m Update README
