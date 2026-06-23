@@ -32,11 +32,19 @@ public class UsuarioController {
     }
 
     /**
-     * Modifica un usuario existente: cambia su contraseña (si se indica una nueva no
-     * vacía) y su rol. No cambia el nombre de usuario, que es su identificador.
+     * Modifica un usuario existente: puede cambiar su nombre de usuario, su contraseña
+     * (si se indica una nueva no vacía) y su rol. El nombre de usuario sigue siendo único:
+     * si se cambia, no puede coincidir con el de otro usuario.
      */
-    public void modificar(Usuario u, String nuevaClave, Rol nuevoRol) {
+    public void modificar(Usuario u, String nuevoNombre, String nuevaClave, Rol nuevoRol) {
         if (u == null) return;
+        if (nuevoNombre != null && !nuevoNombre.isEmpty() && !nuevoNombre.equals(u.nombreUsuario)) {
+            Usuario existente = buscarPorNombre(nuevoNombre);
+            if (existente != null && existente != u) {
+                throw new IllegalArgumentException("Ya existe un usuario con el nombre " + nuevoNombre);
+            }
+            u.nombreUsuario = nuevoNombre;
+        }
         if (nuevaClave != null && !nuevaClave.isEmpty()) {
             u.contrasenia = nuevaClave;
         }

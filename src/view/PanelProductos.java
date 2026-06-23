@@ -21,7 +21,7 @@ public class PanelProductos extends JPanel implements Refrescable {
     public PanelProductos(AppContext ctx) {
         this.ctx = ctx;
         setLayout(new BorderLayout(5, 5));
-        Ui.render(comboRubro, r -> r.descripcion);
+        Ui.render(comboRubro, r -> r.nombre);
 
         JPanel form = new JPanel(new FlowLayout(FlowLayout.LEFT));
         form.setBorder(BorderFactory.createTitledBorder("Producto / Servicio"));
@@ -94,7 +94,7 @@ public class PanelProductos extends JPanel implements Refrescable {
         for (ProductoServicio p : ctx.productos) {
             modeloTabla.addRow(new Object[]{
                     p.nombre, p.unidadMedida, p.tipoIva,
-                    p.rubro == null ? "" : p.rubro.descripcion
+                    p.rubro == null ? "" : p.rubro.nombre
             });
         }
     }

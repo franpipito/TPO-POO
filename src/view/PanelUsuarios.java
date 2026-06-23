@@ -44,6 +44,11 @@ public class PanelUsuarios extends JPanel implements Refrescable {
             }
         };
         tabla = new JTable(modeloTabla);
+        // Al seleccionar una fila, se cargan nombre y rol en el formulario para editarlos
+        // (la contraseña no se muestra; se completa solo si se quiere cambiar).
+        tabla.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) cargarSeleccion();
+        });
         add(new JScrollPane(tabla), BorderLayout.CENTER);
 
         add(crearBotones(), BorderLayout.SOUTH);
@@ -95,17 +100,39 @@ public class PanelUsuarios extends JPanel implements Refrescable {
     }
 
     /**
-     * Modifica el usuario seleccionado: cambia el rol y, si se escribió una clave
-     * nueva, también la contraseña. El nombre de usuario no se modifica (es su id).
+     * Modifica el usuario seleccionado: cambia el nombre de usuario, el rol y, si se
+     * escribió una clave nueva, también la contraseña. El nombre debe seguir siendo
+     * único; si choca con otro usuario, el controller lo rechaza.
      */
     private void modificar() {
         Usuario u = usuarioSeleccionado();
         if (u == null) return;
+        String nuevoNombre = campoUsuario.getText().trim();
+        if (nuevoNombre.isEmpty()) {
+            Ui.error(this, "El nombre de usuario es obligatorio.");
+            return;
+        }
         String nuevaClave = new String(campoClave.getPassword());
         Rol nuevoRol = (Rol) comboRol.getSelectedItem();
-        ctx.usuarios.modificar(u, nuevaClave, nuevoRol);
+        try {
+            ctx.usuarios.modificar(u, nuevoNombre, nuevaClave, nuevoRol);
+        } catch (IllegalArgumentException ex) {
+            Ui.error(this, ex.getMessage()); // nombre de usuario duplicado
+            return;
+        }
         limpiar();
         refrescar();
+    }
+
+    // Carga el nombre y el rol del usuario seleccionado en el formulario (la contraseña
+    // se deja vacía: solo se cambia si se escribe una nueva).
+    private void cargarSeleccion() {
+        int fila = tabla.getSelectedRow();
+        if (fila == -1) return;
+        Usuario u = ctx.usuarios.listarTodos().get(fila);
+        campoUsuario.setText(u.nombreUsuario);
+        campoClave.setText("");
+        comboRol.setSelectedItem(u.rol);
     }
 
     // Baja lógica del usuario seleccionado (queda inactivo, no se borra).
