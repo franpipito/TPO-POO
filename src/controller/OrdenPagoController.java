@@ -26,11 +26,22 @@ public class OrdenPagoController {
         }
 
         OrdenPago op = new OrdenPago();
-        op.numeroOperacion = String.format("OP-%04d", proximoNumero++);
         op.fechaEmision = fecha != null ? fecha : new Date();
         op.proveedor = proveedor;
         op.documentos.addAll(documentos);
         op.mediosPago.addAll(medios);
+
+        // La OP debe cancelar un importe positivo. Si las NC igualan o superan a las
+        // facturas/ND seleccionadas, el neto sería cero o negativo: no es un pago válido
+        // (una OP no puede "pagar" un importe negativo ni aumentar la deuda).
+        if (op.calcularBaseImponible() <= 0) {
+            throw new IllegalStateException(
+                "La orden de pago debe cancelar un importe positivo. Revisa los documentos seleccionados.");
+        }
+
+        // El número correlativo se asigna recién acá, una vez validada la OP, para que
+        // una OP rechazada no consuma un número.
+        op.numeroOperacion = String.format("OP-%04d", proximoNumero++);
         op.confirmarEmision();
 
         // Reducir el saldo del proveedor por los documentos cancelados y marcarlos como
