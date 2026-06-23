@@ -124,8 +124,9 @@ public class PanelUsuarios extends JPanel implements Refrescable {
         Rol nuevoRol = (Rol) comboRol.getSelectedItem();
         try {
             ctx.usuarios.modificar(u, nuevoNombre, nuevaClave, nuevoRol);
-        } catch (IllegalArgumentException ex) {
-            Ui.error(this, ex.getMessage()); // nombre de usuario duplicado
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+            // nombre de usuario duplicado, o intento de dejar al sistema sin supervisor
+            Ui.error(this, ex.getMessage());
             return;
         }
         limpiar();
@@ -147,7 +148,12 @@ public class PanelUsuarios extends JPanel implements Refrescable {
     private void darDeBaja() {
         Usuario u = usuarioSeleccionado();
         if (u == null) return;
-        ctx.usuarios.darDeBaja(u);
+        try {
+            ctx.usuarios.darDeBaja(u);
+        } catch (IllegalStateException ex) {
+            Ui.error(this, ex.getMessage()); // no se puede dar de baja al ultimo supervisor
+            return;
+        }
         refrescar();
     }
 

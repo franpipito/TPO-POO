@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class Proveedor {
 	// Atributos
@@ -86,10 +85,6 @@ public class Proveedor {
 		if (cert != null) {
 			certificados.add(cert);
 		}
-	}
-
-	public static Map<String, Object> getProveedor(int idProveedor) {
-		return null;
 	}
 }
 

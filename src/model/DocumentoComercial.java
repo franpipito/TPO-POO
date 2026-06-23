@@ -9,6 +9,9 @@ public class DocumentoComercial {
 	public String numero;
 	public Date fechaEmision;
 	public double importeTotal;
+	// Indica si el documento ya fue cancelado por una orden de pago. Sirve para listar
+	// los documentos impagos en la cuenta corriente del proveedor.
+	public boolean pagado;
 
 	// Relaciones
 	public List<DetalleDocumento> detalles = new ArrayList<>();

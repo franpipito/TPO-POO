@@ -64,7 +64,7 @@ public class PanelOrdenPago extends JPanel implements Refrescable {
         agregarMedio.addActionListener(e -> agregarMedio());
         medioForm.add(agregarMedio);
         centro.add(medioForm, BorderLayout.NORTH);
-        modeloMedios = new DefaultTableModel(new String[]{"Tipo", "Monto"}, 0) {
+        modeloMedios = new DefaultTableModel(new String[]{"Tipo", "Monto", "Detalle"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -101,7 +101,11 @@ public class PanelOrdenPago extends JPanel implements Refrescable {
         DefaultListModel<DocumentoComercial> modelo = new DefaultListModel<>();
         if (prov != null) {
             for (DocumentoComercial doc : prov.documentos) {
-                modelo.addElement(doc);
+                // Solo se ofrecen documentos impagos: un documento ya cancelado no puede
+                // volver a pagarse (evita descontar el saldo dos veces).
+                if (!doc.pagado) {
+                    modelo.addElement(doc);
+                }
             }
         }
         listaDocs.setModel(modelo);
@@ -121,17 +125,115 @@ public class PanelOrdenPago extends JPanel implements Refrescable {
         }
         String tipo = (String) comboMedio.getSelectedItem();
         MedioPago medio;
+        String detalle;
         if ("Cheque".equals(tipo)) {
-            medio = new Cheque();
+            Cheque cheque = pedirDatosCheque();
+            if (cheque == null) return; // el usuario cancelo o hubo error de validacion
+            medio = cheque;
+            detalle = (cheque.tipoCheque == null ? "" : cheque.tipoCheque)
+                    + " Nro " + cheque.numeroCheque + " - " + cheque.bancoEmisor
+                    + " - vto " + Ui.fmt(cheque.fechaVencimiento);
         } else if ("Transferencia".equals(tipo)) {
-            medio = new Transferencia();
+            Transferencia transf = pedirDatosTransferencia();
+            if (transf == null) return;
+            medio = transf;
+            detalle = transf.banco + " - CBU " + transf.cbuDestino + " - op " + transf.numeroOperacion;
         } else {
             medio = new Efectivo();
+            detalle = "";
         }
         medio.montoAplicado = monto;
         medios.add(medio);
-        modeloMedios.addRow(new Object[]{tipo, monto});
+        modeloMedios.addRow(new Object[]{tipo, monto, detalle});
         campoMonto.setText("");
+    }
+
+    // Pide los datos detallados del cheque (propio/terceros, numero, banco, firmante y
+    // fechas de emision y vencimiento). Devuelve null si se cancela o hay datos invalidos.
+    private Cheque pedirDatosCheque() {
+        JComboBox<String> comboTipo = new JComboBox<>(new String[]{"Propio", "De terceros"});
+        JTextField campoNumero = new JTextField(10);
+        JTextField campoBanco = new JTextField(12);
+        JTextField campoFirmante = new JTextField(15);
+        JTextField campoEmision = new JTextField(10);
+        JTextField campoVencimiento = new JTextField(10);
+
+        JPanel panel = new JPanel(new GridLayout(0, 2, 5, 5));
+        panel.add(new JLabel("Tipo:"));
+        panel.add(comboTipo);
+        panel.add(new JLabel("Numero:"));
+        panel.add(campoNumero);
+        panel.add(new JLabel("Banco:"));
+        panel.add(campoBanco);
+        panel.add(new JLabel("Firmante:"));
+        panel.add(campoFirmante);
+        panel.add(new JLabel("Emision (aaaa-mm-dd):"));
+        panel.add(campoEmision);
+        panel.add(new JLabel("Vencimiento (aaaa-mm-dd):"));
+        panel.add(campoVencimiento);
+
+        int op = JOptionPane.showConfirmDialog(this, panel, "Datos del cheque",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (op != JOptionPane.OK_OPTION) return null;
+
+        if (campoNumero.getText().trim().isEmpty() || campoFirmante.getText().trim().isEmpty()) {
+            Ui.error(this, "El numero y el firmante del cheque son obligatorios.");
+            return null;
+        }
+        Date emision;
+        Date vencimiento;
+        try {
+            emision = Ui.parseFecha(campoEmision.getText());
+            vencimiento = Ui.parseFecha(campoVencimiento.getText());
+        } catch (java.text.ParseException ex) {
+            Ui.error(this, "Las fechas del cheque deben tener formato aaaa-mm-dd.");
+            return null;
+        }
+        if (emision == null || vencimiento == null) {
+            Ui.error(this, "La fecha de emision y la de vencimiento del cheque son obligatorias.");
+            return null;
+        }
+        if (vencimiento.before(emision)) {
+            Ui.error(this, "El vencimiento del cheque no puede ser anterior a la emision.");
+            return null;
+        }
+        Cheque cheque = new Cheque();
+        cheque.tipoCheque = (String) comboTipo.getSelectedItem();
+        cheque.numeroCheque = campoNumero.getText().trim();
+        cheque.bancoEmisor = campoBanco.getText().trim();
+        cheque.nombreFirmante = campoFirmante.getText().trim();
+        cheque.fechaEmision = emision;
+        cheque.fechaVencimiento = vencimiento;
+        return cheque;
+    }
+
+    // Pide los datos de la transferencia (CBU, banco y numero de operacion).
+    private Transferencia pedirDatosTransferencia() {
+        JTextField campoCbu = new JTextField(12);
+        JTextField campoBanco = new JTextField(12);
+        JTextField campoOperacion = new JTextField(12);
+
+        JPanel panel = new JPanel(new GridLayout(0, 2, 5, 5));
+        panel.add(new JLabel("CBU destino:"));
+        panel.add(campoCbu);
+        panel.add(new JLabel("Banco:"));
+        panel.add(campoBanco);
+        panel.add(new JLabel("Nro operacion:"));
+        panel.add(campoOperacion);
+
+        int op = JOptionPane.showConfirmDialog(this, panel, "Datos de la transferencia",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (op != JOptionPane.OK_OPTION) return null;
+
+        if (campoCbu.getText().trim().isEmpty()) {
+            Ui.error(this, "El CBU destino es obligatorio.");
+            return null;
+        }
+        Transferencia transf = new Transferencia();
+        transf.cbuDestino = campoCbu.getText().trim();
+        transf.banco = campoBanco.getText().trim();
+        transf.numeroOperacion = campoOperacion.getText().trim();
+        return transf;
     }
 
     private void emitir() {
@@ -145,7 +247,13 @@ public class PanelOrdenPago extends JPanel implements Refrescable {
             Ui.error(this, "Selecciona al menos un documento a cancelar.");
             return;
         }
-        OrdenPago op = ctx.ordenesPago.emitir(prov, seleccionados, medios, new Date());
+        OrdenPago op;
+        try {
+            op = ctx.ordenesPago.emitir(prov, seleccionados, medios, new Date());
+        } catch (IllegalStateException ex) {
+            Ui.error(this, ex.getMessage());
+            return;
+        }
 
         StringBuilder sb = new StringBuilder();
         sb.append("OP ").append(op.numeroOperacion).append("\n");

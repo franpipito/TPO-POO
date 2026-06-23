@@ -135,6 +135,8 @@ public class PanelComprobantes extends JPanel implements Refrescable {
         det.producto = prod;
         det.cantidad = cantidad;
         det.precioUnitarioAplicado = precio;
+        // Se guarda la alicuota del producto para poder discriminar el IVA en el Libro IVA.
+        det.alicuotaIva = prod.tipoIva;
         det.calcularSubtotal();
         lineas.add(det);
         modeloDetalle.addRow(new Object[]{prod.nombre, cantidad, precio, det.subTotalLinea});
@@ -180,7 +182,7 @@ public class PanelComprobantes extends JPanel implements Refrescable {
             refrescar();
         } catch (IllegalStateException ex) {
             Ui.error(this, ex.getMessage()
-                    + "\n\nActiva 'Modo supervisor' en la barra superior para aprobarla.");
+                    + "\n\nPara aprobarla, inicia sesion con un usuario con rol de supervisor.");
         }
     }
 

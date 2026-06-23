@@ -17,7 +17,6 @@ public class OrdenCompraController {
     // emite debe tener permiso de supervisión, de lo contrario se rechaza.
     public OrdenCompra crearOrden(Proveedor proveedor, List<DetalleOrdenCompra> detalles, Usuario usuario) {
         OrdenCompra oc = new OrdenCompra();
-        oc.numeroOC = String.format("OC-%04d", proximoNumero++);
         oc.fechaEmision = new Date();
         oc.proveedor = proveedor;
         oc.detalles.addAll(detalles);
@@ -30,6 +29,9 @@ public class OrdenCompraController {
             }
         }
 
+        // El número correlativo se asigna recién acá, una vez aprobada, para que una OC
+        // rechazada por falta de supervisión no consuma un número.
+        oc.numeroOC = String.format("OC-%04d", proximoNumero++);
         ordenes.add(oc);
         proveedor.ordenesCompra.add(oc);
         return oc;

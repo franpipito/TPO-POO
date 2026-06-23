@@ -129,7 +129,7 @@ public class PanelOrdenCompra extends JPanel implements Refrescable {
             refrescar();
         } catch (IllegalStateException ex) {
             Ui.error(this, ex.getMessage()
-                    + "\n\nActiva 'Modo supervisor' en la barra superior para aprobarla.");
+                    + "\n\nPara aprobarla, inicia sesion con un usuario con rol de supervisor.");
         }
     }
 

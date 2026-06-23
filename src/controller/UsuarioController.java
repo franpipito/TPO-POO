@@ -38,6 +38,13 @@ public class UsuarioController {
      */
     public void modificar(Usuario u, String nuevoNombre, String nuevaClave, Rol nuevoRol) {
         if (u == null) return;
+        // No se puede quitarle el rol de supervisor al último supervisor activo (dejaría
+        // al sistema sin nadie que pueda gestionar usuarios y roles).
+        if (nuevoRol != null && !nuevoRol.tienePermiso(Rol.PERMISO_APROBAR_SUPERVISION)
+                && esUltimoSupervisorActivo(u)) {
+            throw new IllegalStateException(
+                "No se puede cambiar el rol del ultimo supervisor activo. Asigna otro supervisor primero.");
+        }
         if (nuevoNombre != null && !nuevoNombre.isEmpty() && !nuevoNombre.equals(u.nombreUsuario)) {
             Usuario existente = buscarPorNombre(nuevoNombre);
             if (existente != null && existente != u) {
@@ -53,9 +60,28 @@ public class UsuarioController {
         }
     }
 
-    // Baja lógica: el usuario queda inactivo (no se elimina de la colección).
+    // Baja lógica: el usuario queda inactivo (no se elimina de la colección). No se permite
+    // dar de baja al último supervisor activo, para no dejar el sistema sin administrador.
     public void darDeBaja(Usuario u) {
-        if (u != null) u.activo = false;
+        if (u == null) return;
+        if (esUltimoSupervisorActivo(u)) {
+            throw new IllegalStateException(
+                "No se puede dar de baja al ultimo supervisor activo. Asigna otro supervisor primero.");
+        }
+        u.activo = false;
+    }
+
+    // True si u es un supervisor activo y no queda ningún otro supervisor activo en el sistema.
+    private boolean esUltimoSupervisorActivo(Usuario u) {
+        if (u == null || !u.activo || !u.tienePermiso(Rol.PERMISO_APROBAR_SUPERVISION)) {
+            return false;
+        }
+        for (Usuario otro : usuarios) {
+            if (otro != u && otro.activo && otro.tienePermiso(Rol.PERMISO_APROBAR_SUPERVISION)) {
+                return false; // hay otro supervisor activo
+            }
+        }
+        return true;
     }
 
     // Reactiva un usuario dado de baja.

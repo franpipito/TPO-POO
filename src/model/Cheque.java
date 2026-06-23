@@ -9,5 +9,7 @@ public class Cheque extends MedioPago {
 	public String nombreFirmante;
 	public String bancoEmisor;
 	public String numeroCheque;
+	// Tipo de cheque: "Propio" o "De terceros".
+	public String tipoCheque;
 }
 

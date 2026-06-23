@@ -35,6 +35,7 @@ public class VentanaPrincipal extends JFrame {
         pestanias.addTab("Comprobantes", new PanelComprobantes(ctx));
         pestanias.addTab("Ordenes de Pago", new PanelOrdenPago(ctx));
         pestanias.addTab("Certificados", new PanelCertificados(ctx));
+        pestanias.addTab("Consultas", crearPestaniaConsultas());
         pestanias.addTab("Reportes", new PanelReportes(ctx));
 
         // Solo un Supervisor ve las pestañas de administración de usuarios y roles.
@@ -80,6 +81,18 @@ public class VentanaPrincipal extends JFrame {
         catalogo.addTab("Impuestos", new PanelImpuestos(ctx));
         catalogo.addChangeListener(e -> refrescarComponente(catalogo.getSelectedComponent()));
         return catalogo;
+    }
+
+    // Sub-pestañas de consultas de gestión: cuenta corriente, libro IVA, compulsa de
+    // precios y análisis financiero.
+    private JTabbedPane crearPestaniaConsultas() {
+        JTabbedPane consultas = new JTabbedPane();
+        consultas.addTab("Cuenta Corriente", new PanelCuentaCorriente(ctx));
+        consultas.addTab("Libro IVA Compras", new PanelLibroIva(ctx));
+        consultas.addTab("Compulsa de Precios", new PanelCompulsaPrecios(ctx));
+        consultas.addTab("Analisis Financiero", new PanelAnalisisFinanciero(ctx));
+        consultas.addChangeListener(e -> refrescarComponente(consultas.getSelectedComponent()));
+        return consultas;
     }
 
     private void refrescarSeleccion() {

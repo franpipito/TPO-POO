@@ -17,6 +17,14 @@ public class OrdenPagoController {
     // respetando los certificados de no retención vigentes del proveedor.
     public OrdenPago emitir(Proveedor proveedor, List<DocumentoComercial> documentos,
                             List<MedioPago> medios, Date fecha) {
+        // Guarda defensiva: ningún documento ya pagado puede volver a cancelarse.
+        for (DocumentoComercial doc : documentos) {
+            if (doc.pagado) {
+                throw new IllegalStateException(
+                    "El documento " + doc.getNumero() + " ya fue pagado y no puede cancelarse de nuevo.");
+            }
+        }
+
         OrdenPago op = new OrdenPago();
         op.numeroOperacion = String.format("OP-%04d", proximoNumero++);
         op.fechaEmision = fecha != null ? fecha : new Date();
@@ -25,13 +33,15 @@ public class OrdenPagoController {
         op.mediosPago.addAll(medios);
         op.confirmarEmision();
 
-        // Reducir el saldo del proveedor por los documentos cancelados
+        // Reducir el saldo del proveedor por los documentos cancelados y marcarlos como
+        // pagados (para que dejen de figurar como impagos en la cuenta corriente).
         for (DocumentoComercial doc : documentos) {
             if ("NC".equals(doc.getTipo())) {
                 proveedor.saldoActual += doc.importeTotal;
             } else {
                 proveedor.saldoActual -= doc.importeTotal;
             }
+            doc.pagado = true;
         }
 
         ordenes.add(op);

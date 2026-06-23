@@ -33,11 +33,20 @@ public class ProveedorController {
         return null;
     }
 
+    // Busca por CUIT comparando solo los dígitos, de modo que "20-12345678-6" y
+    // "20123456786" se consideren el mismo CUIT (no se puede duplicar cambiando el formato).
     public Proveedor buscarPorCuit(String cuit) {
+        String objetivo = normalizarCuit(cuit);
+        if (objetivo.isEmpty()) return null;
         for (Proveedor p : proveedores) {
-            if (p.cuit != null && p.cuit.equals(cuit)) return p;
+            if (normalizarCuit(p.cuit).equals(objetivo)) return p;
         }
         return null;
+    }
+
+    // Deja solo los dígitos del CUIT (quita guiones, espacios, etc.).
+    private static String normalizarCuit(String cuit) {
+        return cuit == null ? "" : cuit.replaceAll("[^0-9]", "");
     }
 
     public List<Proveedor> listarTodos() {

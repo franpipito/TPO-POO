@@ -15,7 +15,6 @@ public class FacturaController {
     // Registra una factura recibida. Si no hay OC asociada o los precios no coinciden
     // con la OC, se requiere aprobacion de un supervisor antes de confirmar el registro.
     public Factura registrar(Factura factura, OrdenCompra oc, Proveedor proveedor, Usuario usuario) {
-        factura.numero = String.format("F-%04d", proximoNumero++);
         if (factura.fechaEmision == null) factura.fechaEmision = new Date();
         factura.ordenCompra = oc;
 
@@ -28,6 +27,9 @@ public class FacturaController {
             }
         }
 
+        // El número correlativo se asigna recién acá, cuando el registro está confirmado,
+        // para que una factura rechazada no consuma un número.
+        factura.numero = String.format("F-%04d", proximoNumero++);
         factura.confirmarRegistro();
         facturas.add(factura);
 
