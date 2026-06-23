@@ -16,10 +16,15 @@ public class OrdenCompra {
 	public List<DetalleOrdenCompra> detalles = new ArrayList<>();
 	public Proveedor proveedor;
 
+	// Total estimado = neto + IVA. Incluye el IVA (según la alícuota de cada producto) para
+	// que el control de tope de deuda compare contra la deuda del proveedor, que también
+	// está expresada con IVA.
 	public double calcularTotal() {
 		double total = 0.0;
 		for (DetalleOrdenCompra d : detalles) {
-			total += d.calcularSubtotal();
+			double neto = d.calcularSubtotal();
+			double alicuota = d.producto != null ? d.producto.tipoIva : 0.0;
+			total += neto + neto * alicuota / 100.0;
 		}
 		totalEstimado = total;
 		return total;

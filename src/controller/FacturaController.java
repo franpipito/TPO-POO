@@ -46,6 +46,7 @@ public class FacturaController {
         detalle.producto = producto;
         detalle.cantidad = cantidad;
         detalle.precioUnitarioAplicado = precioUnitario;
+        detalle.alicuotaIva = producto != null ? producto.tipoIva : 0.0;
         detalle.subTotalLinea = detalle.calcularSubtotal();
         return detalle;
     }

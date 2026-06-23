@@ -16,10 +16,14 @@ public class DocumentoComercial {
 	// Relaciones
 	public List<DetalleDocumento> detalles = new ArrayList<>();
 
+	// Total del documento = neto + IVA. Cada línea suma su subtotal neto más el IVA según
+	// su alícuota, de modo que el importe registrado (deuda del proveedor) incluye el IVA
+	// y coincide con el total del Libro IVA Compras.
 	public double calcularTotal() {
 		double total = 0.0;
 		for (DetalleDocumento d : detalles) {
-			total += d.calcularSubtotal();
+			double neto = d.calcularSubtotal();
+			total += neto + neto * d.alicuotaIva / 100.0;
 		}
 		importeTotal = total;
 		return total;
